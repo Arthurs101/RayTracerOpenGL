@@ -78,12 +78,13 @@ int main()
 	glViewport(0, 0, width, height);
 
 	Sphere sphere(2.0f, {0.0f,0.0f,0.0f},{0.0f,0.0f,1.0f});
-	const GLfloat* sphereV = sphere.getVertices();
-	const GLuint* sphereI = sphere.getIndices();
+	GLfloat* sphereV = sphere.getVertices();
+
+	GLuint* sphereI = sphere.getIndices();
 	//VertexBuffer vbo(vertices, sizeof(vertices));
 
 	////cargar shaders
-	Shader shader("default.vert","default.frag");
+	Shader shader("obj.vert","obj.frag");
 	////cargar vertex buffers y vertex array buffers
 	VertexArrayObject vao;
 	vao.Bind();
@@ -103,12 +104,12 @@ int main()
 	GLuint uniformID = glGetUniformLocation(shader.shaderID, "scale");
 
 	//declare the texture
-	//Texture popCat("obama.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	//popCat.texUnit(shader, "tex0", 0);
+	Texture popCat("obama.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	popCat.texUnit(shader, "tex0", 0);
 
-	// Variables that help the rotation of the pyramid
-	//float rotation = 0.0f;
-	//double prevTime = glfwGetTime();
+	//Variables that help the rotation of the pyramid
+	float rotation = 0.0f;
+	double prevTime = glfwGetTime();
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
@@ -117,47 +118,47 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(25.0f, 25.0f, 25.0f, 1.0f);
+		glClearColor(0.2f, 0.0f, 0.4f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		shader.Activate();
 
 		// Simple timer
-		//double crntTime = glfwGetTime();
-		//if (crntTime - prevTime >= 1 / 60)
-		//{
-		//	rotation += 0.5f;
-		//	prevTime = crntTime;
-		//}
+		double crntTime = glfwGetTime();
+		if (crntTime - prevTime >= 1 / 60)
+		{
+			rotation += 0.5f;
+			prevTime = crntTime;
+		}
 
 		//// Initializes matrices so they are not the null matrix
-		//glm::mat4 model = glm::mat4(1.0f);
-		//glm::mat4 view = glm::mat4(1.0f);
-		//glm::mat4 proj = glm::mat4(1.0f);
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 proj = glm::mat4(1.0f);
 
-		//// Assigns different transformations to each matrix
-		//model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		//view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-		//proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+		// Assigns different transformations to each matrix
+		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
 
-		//// Outputs the matrices into the Vertex Shader
-		//int modelLoc = glGetUniformLocation(shader.shaderID, "model");
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//int viewLoc = glGetUniformLocation(shader.shaderID, "view");
-		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		//int projLoc = glGetUniformLocation(shader.shaderID, "proj");
-		//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+		// Outputs the matrices into the Vertex Shader
+		int modelLoc = glGetUniformLocation(shader.shaderID, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		int viewLoc = glGetUniformLocation(shader.shaderID, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		int projLoc = glGetUniformLocation(shader.shaderID, "proj");
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
 
-		////set the scale to be 20% bigger
-		//glUniform1f(uniformID,0.2f);
+		//set the scale to be 20% bigger
+		glUniform1f(uniformID,0.2f);
 		//hacer bind de la textura para aplicarlo
-		//popCat.Bind();
+		popCat.Bind();
 		//// Bind the VAO so OpenGL knows to use it
 		vao.Bind();
 		//// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sphere.getIndicesSize() / sizeof(int), GL_UNSIGNED_INT, 0);
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events

@@ -21,20 +21,20 @@ public:
         generateVerticesAndIndices();
     }
 
-    const GLfloat* getVertices() const {
+    GLfloat* getVertices() {
         return vertices_.data();
     }
 
-    const GLuint* getIndices() const {
+     GLuint* getIndices()  {
         return indices_.data();
     }
     
-    GLsizeiptr getVerticesSize() const {
-        return vertices_.size() * sizeof(GLfloat);
+    GLsizeiptr getVerticesSize()  {
+        return vertices_.size();
     }
 
-    GLsizeiptr getIndicesSize() const {
-        return indices_.size() * sizeof(GLuint);
+    GLsizeiptr getIndicesSize()  {
+        return indices_.size();
     }
 
 private:
