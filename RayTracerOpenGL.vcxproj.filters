@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos\Shaders">
+      <UniqueIdentifier>{e479d614-3a2a-4a18-9cc4-0c2e8ecd7f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Shaders\Vertex">
+      <UniqueIdentifier>{54b9a039-9001-4911-bfb2-4ada187cd4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Shaders\Fragment">
+      <UniqueIdentifier>{c4458325-9e57-4ac3-b969-624ca1d9ea1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Geometric_Shapes">
+      <UniqueIdentifier>{b88c7382-2d71-4e29-973f-01d79c314196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Textures">
+      <UniqueIdentifier>{343a07cd-5bfb-47e9-b7db-bc5d0f671f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Buffers">
+      <UniqueIdentifier>{55e80308-2491-481a-8397-23614b733d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Visuals">
+      <UniqueIdentifier>{704c53b4-75ba-4de9-9c70-55718a984584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\CORE%28don%27t touch it%29">
+      <UniqueIdentifier>{92359053-24da-49ae-b682-eced33503ed9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Archivos de origen\Geometric_Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementBuffer.cpp">
+      <Filter>Archivos de origen\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Archivos de origen\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArrayObject.cpp">
+      <Filter>Archivos de origen\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>Archivos de origen\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Archivos de origen\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="stbImp.cpp">
+      <Filter>Archivos de origen\CORE%28don%27t touch it%29</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Verterx_Buffer.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArrayObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementBuffer.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+    <None Include="default.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="vrtxColor.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="vrtxColor.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+    <None Include="clrscale.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+    <None Include="texture.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+    <None Include="texture.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="light.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+    <None Include="obj.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="obj.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="tank.bmp">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="obama.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
