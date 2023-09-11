@@ -139,7 +139,7 @@ int main()
 
 		// Assigns different transformations to each matrix
 		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -8.0f));
 		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
 
 		// Outputs the matrices into the Vertex Shader
@@ -158,7 +158,7 @@ int main()
 		//// Bind the VAO so OpenGL knows to use it
 		vao.Bind();
 		//// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, sphere.getIndicesSize() / sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sphere.getIndicesSize(), GL_UNSIGNED_INT,0);
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
