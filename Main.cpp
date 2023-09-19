@@ -13,38 +13,46 @@
 #include"Texture.h"
 #include "Sphere.cpp"
 
+#include<vector>
 
 const unsigned int width = 800;
 const unsigned int height = 800;
 
-// Vertices coordinates
-// Vertices coordinates
-GLfloat vertices[] =
-{ //     COORDINATES     /        COLORS      /   TexCoord  //
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	1.0f, 0.0f,
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	1.0f, 0.0f,
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	0.5f, 1.0f
+
+// Create an array of sphere properties
+struct SphereProperties {
+	float radius;
+	std::vector<float> color;
+	glm::vec3 position;
 };
-
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 1, 2,
-	0, 2, 3,
-	0, 1, 4,
-	1, 2, 4,
-	2, 3, 4,
-	3, 0, 4
-};
-
-
 
 
 int main()
 {
+	std::vector<SphereProperties> spheres;
+
+	// Add spheres to the array
+	// body
+	spheres.push_back({ 1.5f, {0.9f, 0.9f, 1.0f}, glm::vec3(0.0f, 2.0f, 0.0f) });
+	spheres.push_back({ 1.0f, {0.9f, 0.9f, 1.0f}, glm::vec3(0.0f, 4.0f, 0.0f) });
+	spheres.push_back({ 0.8f, {0.9f, 0.9f, 1.0f}, glm::vec3(0.0f, 5.0f, 0.0f) });
+	//nose
+	spheres.push_back({0.1f, {1.0f, 0.5f, 0.0f}, glm::vec3(0.0f, 4.7, 4.0f) });
+	//buttons
+	//face
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(-0.2f, 4.9f, 4.0f) });
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.2f, 4.9f, 4.0f) });
+	//smile
+	spheres.push_back({ 0.04f, {0.63f, 0.51f, 0.38f}, glm::vec3(-0.3f, 4.63f, 4.0f) });
+	spheres.push_back({ 0.04f, {0.63f, 0.51f, 0.38f}, glm::vec3(-0.15f, 4.55f, 4.0f) });
+	spheres.push_back({ 0.04f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.0f, 4.5f, 4.0f) });
+	spheres.push_back({ 0.04f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.3f, 4.63f, 4.0f) });
+	spheres.push_back({ 0.04f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.15f, 4.55f, 4.0f) });
+	//boddy
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.0f,4.2f, 4.0f) });
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.0f,4.0f, 4.0f) });
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.0f,3.5f, 4.0f) });
+	spheres.push_back({ 0.08f, {0.63f, 0.51f, 0.38f}, glm::vec3(0.0f,3.0f, 4.0f) });
 	// Initialize GLFW
 	glfwInit();
 
@@ -58,9 +66,7 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "RayTRacer"
 	GLFWwindow* window = glfwCreateWindow(width, height, "Raytracer", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
@@ -76,41 +82,21 @@ int main()
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
-
-	Sphere sphere(2.0f, {0.0f,0.0f,0.0f},{0.0f,0.0f,1.0f});
-	GLfloat* sphereV = sphere.getVertices();
-
-	GLuint* sphereI = sphere.getIndices();
-	//VertexBuffer vbo(vertices, sizeof(vertices));
-
 	////cargar shaders
-	Shader shader("obj.vert","obj.frag");
-	////cargar vertex buffers y vertex array buffers
-	VertexArrayObject vao;
-	vao.Bind();
-
-	VertexBuffer vbo(sphereV, sphere.getVerticesSize());
-	ElementBuffer ebo(sphereI, sphere.getIndicesSize());
-
-	vao.linkVtxBuff(vbo, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0); //position coordinates on layer 0
-	vao.linkVtxBuff(vbo, 1, 3,GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float))); // color coordinates on layer 1
-	vao.linkVtxBuff(vbo, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float))); //texture coordinates on layer 2
-	////unbind para evitar modificaciones futuras
-	vao.Unbind();
-	vbo.Unbind();
-	ebo.Unbind();
-	
+	Shader shader("blin_phon.vert","blin_phon.frag");
+		
 	//scale uniform
 	GLuint uniformID = glGetUniformLocation(shader.shaderID, "scale");
 
 	//declare the texture
-	Texture popCat("obama.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture popCat("Earth.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	popCat.texUnit(shader, "tex0", 0);
-
-	//Variables that help the rotation of the pyramid
-	float rotation = 0.0f;
-	double prevTime = glfwGetTime();
-
+	//declare light properties
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	glm::vec3 lightPos = glm::vec3(1.0f, 2.0f, 2.0f);
+	glm::mat4 lightModel = glm::mat4(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
+	
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
 
@@ -118,58 +104,68 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.2f, 0.0f, 0.4f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		shader.Activate();
-
+		glUniform4f(glGetUniformLocation(shader.shaderID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+		glUniform3f(glGetUniformLocation(shader.shaderID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		// Simple timer
-		double crntTime = glfwGetTime();
-		if (crntTime - prevTime >= 1 / 60)
-		{
-			rotation += 0.5f;
-			prevTime = crntTime;
-		}
-
 		//// Initializes matrices so they are not the null matrix
-		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 proj = glm::mat4(1.0f);
 
-		// Assigns different transformations to each matrix
-		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -8.0f));
+		// Assigns different transformations to camera
+		glm::vec3 camPos = glm::vec3(0.0f, 4.0f, 10.0f);
+		glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+		glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		view = glm::lookAt(camPos, camPos + Orientation, Up);
 		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+		glm::mat4 cameraMatrix = proj * view;
 
-		// Outputs the matrices into the Vertex Shader
-		int modelLoc = glGetUniformLocation(shader.shaderID, "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		int viewLoc = glGetUniformLocation(shader.shaderID, "view");
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		int projLoc = glGetUniformLocation(shader.shaderID, "proj");
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+		//render all the spheres
+		for (const SphereProperties& sphereProps : spheres) {
+			Sphere sphere(sphereProps.radius, sphereProps.color, sphereProps.position, 36, 36);
+			VertexArrayObject vao;
+			vao.Bind();
+			VertexBuffer vbo(sphere.getVertices());
+			ElementBuffer ebo(sphere.getIndices());
 
+			vao.linkVtxBuff(vbo, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0); //vertex
+			vao.linkVtxBuff(vbo, 1, 3, GL_FLOAT, 11 * sizeof(float), (void*)(3 * sizeof(float))); //color
+			vao.linkVtxBuff(vbo, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float))); //texture coordinates on layer 2
+			vao.linkVtxBuff(vbo, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float))); //normals
+			////unbind to avoid future modifications
+			vao.Unbind();
+			vbo.Unbind();
+			ebo.Unbind();
 
-		//set the scale to be 20% bigger
-		glUniform1f(uniformID,0.2f);
-		//hacer bind de la textura para aplicarlo
-		popCat.Bind();
-		//// Bind the VAO so OpenGL knows to use it
-		vao.Bind();
-		//// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, sphere.getIndicesSize(), GL_UNSIGNED_INT,0);
+			// Outputs the matrices into the Vertex Shader
+			int modelLoc = glGetUniformLocation(shader.shaderID, "model");
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(sphere.getModel()));
+			int viewLoc = glGetUniformLocation(shader.shaderID, "camMatrix");
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cameraMatrix));
+			glUniform3f(glGetUniformLocation(shader.shaderID, "camPos"), camPos.x, camPos.y, camPos.z);
+			// Set the scale to be 0% bigger
+			glUniform1f(uniformID, 0.0f);
+			// Bind the texture to apply it
+			popCat.Bind();
+			//// Bind the VAO so OpenGL knows to use it
+			vao.Bind();
+			// Draw primitives, number of indices, datatype of indices, index of indices
+			glDrawElements(GL_TRIANGLES, sphere.getIndices().size(), GL_UNSIGNED_INT, (void*)0);
+			vao.Delete();
+			vbo.Delete();
+			ebo.Delete();
+		}
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
 
-
-	//eliminar vbo,vao
-	vao.Delete();
-	vbo.Delete();
-	ebo.Delete();
 	//popCat.Delete();
 	shader.Delete();
 	// Delete window before ending the program

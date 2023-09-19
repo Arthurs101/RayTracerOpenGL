@@ -118,12 +118,21 @@
     <None Include="obj.vert">
       <Filter>Archivos de recursos\Shaders\Vertex</Filter>
     </None>
+    <None Include="blin_phon.frag">
+      <Filter>Archivos de recursos\Shaders\Fragment</Filter>
+    </None>
+    <None Include="blin_phon.vert">
+      <Filter>Archivos de recursos\Shaders\Vertex</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="tank.bmp">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
     <Image Include="obama.png">
+      <Filter>Archivos de recursos\Textures</Filter>
+    </Image>
+    <Image Include="Earth.png">
       <Filter>Archivos de recursos\Textures</Filter>
     </Image>
   </ItemGroup>

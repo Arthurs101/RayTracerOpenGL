@@ -7,6 +7,12 @@ ElementBuffer::ElementBuffer(GLuint* indices, GLsizeiptr size)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
+ElementBuffer::ElementBuffer(vector<unsigned int> indices)
+{
+	glGenBuffers(1, &ID);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+}
 // Binds the EBO
 void ElementBuffer::Bind()
 {

@@ -157,6 +157,8 @@
     <ClInclude Include="VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blin_phon.frag" />
+    <None Include="blin_phon.vert" />
     <None Include="obj.frag" />
     <None Include="clrscale.vert" />
     <None Include="default.frag" />
@@ -170,6 +172,7 @@
     <None Include="vrtxColor.frag" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Earth.png" />
     <Image Include="obama.png" />
     <Image Include="tank.bmp" />
   </ItemGroup>
