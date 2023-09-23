@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="ElementBuffer.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElementBuffer.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Verterx_Buffer.h" />
